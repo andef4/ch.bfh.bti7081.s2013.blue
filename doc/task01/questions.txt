@@ -1,0 +1,2 @@
+1. Has only one doctor knowlegde about a patient?
+2. Wie sieht so ein report aus? Welche Daten, welches Format?
