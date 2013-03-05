@@ -1,0 +1,22 @@
+High Level User Requirements - PIP
+
+
+Functional Requirements
+
+  1. Zuckerwerte werden in einem definierten Band gehalten.
+  2. Pumpe benötigt keine Benutzerinteraktion.
+  3. Pumpensystem muss mobil sein.
+  4. Warnsystem für Wartungs- oder Problemmeldungen
+
+
+Non-Functional Requirements
+
+  1. Zuckerwerte müssen ein einem Bereich von 3-7 gehalten werden. Einhaltung der Untergrenze ist zwingend Obergrenze kann kurzzeitig überschritten werden.
+  2. Insulinausschütung bei ansteigendem Zuckergehalt.
+  3. Warnungen für: Leerer Insulinspeicher / Leere Batterie / Defekter Sensor / Alarmmeldungen (zu Tiefer / zu hoher Zuckerwert)
+
+
+
+
+
+
