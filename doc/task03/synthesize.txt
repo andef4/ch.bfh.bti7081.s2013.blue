@@ -1,0 +1,5 @@
+Synthesize
+----------
+* Verwaltung von Medikamenten (Lager, Ablaufdatum)
+* Rapportierung des Medikamenteneinnahme (Wirkung des Medikamentes, Dosis im Blut, allgemeiner Gesundheitszustand)
+* Information zu Medikamenten (Wirkung, Wirkung bei bestimmen Patientengruppen)

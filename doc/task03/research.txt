@@ -1,0 +1,26 @@
+Research
+--------
+http://www.youtube.com/watch?v=SANWMoTXY-k&NR=1
+
+* provide medication therapy evaluations and recommendations to patients and other health care professionals
+* safe, appropriate, and cost-effective use of medications
+
+http://de.wikipedia.org/wiki/Klinische_Pharmazie
+http://en.wikipedia.org/wiki/Clinical_pharmacy
+------------------------------------------------
+* Auswahl des richtigen Medikaments (zusammen mit Arzt, es gibt verschidene Medikamente mit dem selben Wirkstoff)
+* Dosierung des Medikamentes
+* Information über neue Medikamente
+* Besonderheiten der Arzneimitteltherapie in speziellen Patientengruppen (z. B. Kinder, Schwangere) bestimmter Therapieregime
+* Arzneimittelanamnese (Welche Medikamente wurden vom Patient schon eingebnommen? Wirkung?
+* Nutzen-Risiko-Bewertung einer Arzneimitteltherapie
+* Therapeutisches Drug monitoring (Überwachung des Konzentration des Medikamentes im Blut des Patienten -> Anpassung der Dosis)
+* Compliance (Nimmt der Patient die Medikamente regelmässig ein? Vergisst er sie?)
+* Pharmazeutische Betreuung
+* Bezug zwischen Pharmakodynamik und Pharmakokinetik (Wie wirkt ein Wirkstoff im Körper)
+Populationspharmakokinetik
+* Klinische Pharmakogenetik (Einfluss der Genetik auf die Medikamentenwirkung)
+* Ernährungstherapie
+* Pharmakoepidemiologie und -ökonomie (Ökonimische Aspekte der Arzneimittelvergabe)
+* Pharmakovigilanz (Überwachung der Sicherheit von Medikamenten, unerwünschte Wirkungen tracken etc.)
+
