@@ -19,3 +19,16 @@ andef4, lutha5, gassm9, kambf1
 13.3.2013
 ---------
 * Interview mit Mutter von Fabio geführt
+
+15.3.2013
+---------
+* Synthese, Design Phase beendet
+* Prototyp erstellt
+
+17.3.2013
+---------
+* gassm9: Erste Version der Präsentation erstellt
+
+18.3.2013
+---------
+* andef4: Präsentation fertiggemacht
