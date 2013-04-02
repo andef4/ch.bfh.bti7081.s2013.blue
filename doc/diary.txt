@@ -7,8 +7,8 @@ andef4, lutha5, gassm9, kambf1
 
 26.2.2013
 ---------
-* Task 1 Pr채sentation erstellt
-* Task 2 Pr채sentation erstellt
+* Task 1 Pr둺entation erstellt
+* Task 2 Pr둺entation erstellt
 
 12.3.2013
 ---------
@@ -27,8 +27,32 @@ andef4, lutha5, gassm9, kambf1
 
 17.3.2013
 ---------
-* gassm9: Erste Version der Pr채sentation erstellt
+* gassm9: Erste Version der Pr둺entation erstellt
 
 18.3.2013
 ---------
-* andef4: Pr채sentation fertiggemacht
+* andef4: Pr둺entation fertiggemacht
+
+19.3.2013
+---------
+* andef4 / kambf1: Dokumentenstruktur festgelegt
+* andef4 / kambf1: Use-Cases 1-4 erstellt
+
+20.3.2013
+---------
+* gassm9: Kapitel Testing fertiggestellt
+
+21.3.2013
+---------
+* kambf1: Use-Case Diagramm erstellt.
+
+22.3.2013
+---------
+* gassm9: Requirements Dokument zusemmengef웗t.
+* andef4: Pr둺entation erstellt.
+Probleme: Unsere Gruppe war diese Woche immer nur reduziert anwesend.
+
+
+
+
+
