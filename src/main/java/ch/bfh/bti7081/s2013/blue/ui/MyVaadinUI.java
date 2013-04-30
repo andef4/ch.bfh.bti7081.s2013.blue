@@ -1,5 +1,9 @@
 package ch.bfh.bti7081.s2013.blue.ui;
 
+import ch.bfh.bti7081.s2013.blue.entities.Patient;
+
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -27,6 +31,15 @@ public class MyVaadinUI extends UI
             }
         });
         layout.addComponent(button);
+        
+        JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, "mhc-pms");
+        
+        Patient patient = new Patient();
+        patient.setFirstName("Fabio");
+        patient.setLastName("Anderegg");
+        patients.addEntity(patient);
+        
+        
     }
 
 }
