@@ -9,10 +9,10 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql:bfh" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="django" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/bfh" />
+			<property name="javax.persistence.jdbc.user" value="bfh" />
+			<property name="javax.persistence.jdbc.password" value="bfh" />
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>
 	</persistence-unit>
