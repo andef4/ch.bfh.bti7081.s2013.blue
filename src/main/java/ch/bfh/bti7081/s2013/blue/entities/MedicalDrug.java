@@ -16,7 +16,7 @@ public class MedicalDrug {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private int swissmedicNumber;
+	private String swissmedicNumber;
 	private String name;
 	private int dailyDemand;
 	private int stock;
@@ -36,10 +36,10 @@ public class MedicalDrug {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public int getSwissmedicNumber() {
+	public String getSwissmedicNumber() {
 		return swissmedicNumber;
 	}
-	public void setSwissmedicNumber(int swissmedicNumber) {
+	public void setSwissmedicNumber(String swissmedicNumber) {
 		this.swissmedicNumber = swissmedicNumber;
 	}
 	public String getName() {
