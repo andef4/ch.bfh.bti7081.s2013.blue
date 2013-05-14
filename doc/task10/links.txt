@@ -1,0 +1,8 @@
+Wir haben uns entschieden, für den Product und Sprint Backlog Google Docs zu verwenden, da das einfacher ist wenn mehrere Personen zusammenarbeiten wollen:
+
+Product Backlog:
+https://docs.google.com/a/gonnado.com/spreadsheet/ccc?key=0AvmJzASyXkUbdGZlZWJWcTFUTFZCaGc0bm1WeGdjRlE
+
+Sprint Backlog:
+https://docs.google.com/a/gonnado.com/spreadsheet/ccc?key=0AvmJzASyXkUbdFVGQ3dwUVdWcklyUWp0LTdoUExraXc
+
