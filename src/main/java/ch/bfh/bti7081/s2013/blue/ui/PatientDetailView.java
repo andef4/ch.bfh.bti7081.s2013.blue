@@ -5,13 +5,15 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class PatientDetailView extends VerticalLayout implements View {
-
-	
-	
+public class PatientDetailView extends VerticalLayout implements View, IBackButtonView {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+	}
+
+	@Override
+	public String getBackView() {
+		return NavigatorUI.PATIENT_SEARCH_VIEW;
 	}
 
 }

@@ -6,9 +6,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class PatientSearchView extends VerticalLayout implements View {
+public class PatientSearchView extends VerticalLayout implements View, IBackButtonView {
 
-	
 	public PatientSearchView() {
 		setSizeFull();
 		Label label = new Label("Patient search");
@@ -17,8 +16,12 @@ public class PatientSearchView extends VerticalLayout implements View {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public String getBackView() {
+		return NavigatorUI.MAIN_VIEW;
 	}
 
 }
