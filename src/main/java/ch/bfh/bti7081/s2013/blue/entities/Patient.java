@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2013.blue.entities;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,23 @@ public class Patient {
 
 	private String firstName;
 	private String lastName;
+	private Date birthday;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
 	public String getFirstName() {
 		return firstName;

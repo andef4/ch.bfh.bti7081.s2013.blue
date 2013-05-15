@@ -27,7 +27,6 @@ public class NavigatorUI extends UI {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (panel.getContent() instanceof IBackButtonView) {
-					System.out.println("navigate!!!");
 					IBackButtonView currentView = (IBackButtonView) panel.getContent();
 					getNavigator().navigateTo(currentView.getBackView());
 				}
