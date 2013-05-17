@@ -17,6 +17,10 @@ public class NavigatorUI extends UI {
 	public static String MAIN_VIEW = ""; // this is the initial view, it must be blank
 	public static String PATIENT_SEARCH_VIEW = "patient_search";
 	public static String PATIENT_DETAIL_VIEW = "patient_detail";
+	public static String DRUG_SEARCH_VIEW = "drug_search";
+	public static String DRUG_DETAIL_VIEW = "drug_detail";
+	public static String REPORT_CREATE_VIEW = "report_create_view";
+	public static String REPORT_SEARCH_VIEW = "report_search_view";
 	
 	@Override
 	protected void init(VaadinRequest request) {
@@ -42,6 +46,13 @@ public class NavigatorUI extends UI {
 		navigator.addView(MAIN_VIEW, MainView.class);
 		navigator.addView(PATIENT_SEARCH_VIEW, PatientSearchView.class);
 		navigator.addView(PATIENT_DETAIL_VIEW, PatientDetailView.class);
+		
+		navigator.addView(DRUG_SEARCH_VIEW, DrugSearchView.class);
+		navigator.addView(DRUG_DETAIL_VIEW, DrugDetailView.class);
+		navigator.addView(REPORT_CREATE_VIEW, ReportCreateView.class);
+		navigator.addView(REPORT_SEARCH_VIEW, ReportSearchView.class);
+		
+		
 		
 		navigator.addViewChangeListener(new ViewChangeListener() {
 			@Override

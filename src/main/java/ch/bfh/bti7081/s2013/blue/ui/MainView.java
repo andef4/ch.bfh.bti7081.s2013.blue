@@ -4,6 +4,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -12,13 +14,15 @@ public class MainView extends VerticalLayout implements View, IBackButtonView {
 	
 	public MainView() {
 		setSizeFull();
-		Button button = new Button("Search Patient", new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				getUI().getNavigator().navigateTo(NavigatorUI.PATIENT_SEARCH_VIEW);
-			}
-		});
-		addComponent(button);
+		Button patientSearchButton = new Button("Patient suchen", new NavigationClickListener(NavigatorUI.PATIENT_SEARCH_VIEW));
+		Button drugSearchButton = new Button("Medikament suchen", new NavigationClickListener(NavigatorUI.DRUG_SEARCH_VIEW));
+		Button reportCreateButton = new Button("Bericht erstellen", new NavigationClickListener(NavigatorUI.REPORT_CREATE_VIEW));
+		Button reportSearchButton = new Button("Bericht suchen", new NavigationClickListener(NavigatorUI.REPORT_SEARCH_VIEW));
+		
+		addComponent(patientSearchButton);
+		addComponent(drugSearchButton);
+		addComponent(reportCreateButton);
+		addComponent(reportSearchButton);
 	}
 	
 	@Override
@@ -29,5 +33,15 @@ public class MainView extends VerticalLayout implements View, IBackButtonView {
 	public String getBackView() {
 		return null;
 	}
-
+	
+	class NavigationClickListener implements ClickListener {
+		private String view;
+		public NavigationClickListener(String view) {
+			this.view = view;
+		}
+		@Override
+		public void buttonClick(ClickEvent event) {
+			UI.getCurrent().getNavigator().navigateTo(view);
+		}
+	};
 }
