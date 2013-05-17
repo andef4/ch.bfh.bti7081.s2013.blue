@@ -74,6 +74,9 @@
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>8.1.10.v20130312</version>
+				<configuration>
+				    <scanIntervalSeconds>3</scanIntervalSeconds>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
