@@ -16,6 +16,7 @@ Open a terminal/cmd and enter following commands:
  virtualenv ../admin-venv
  source ../admin-venv/bin/activate # ..\admin-venv\Scripts\activate on Windows
  pip install -r requirements.txt
+ python manage.py syncdb
 
 From now on, to start the server you have to do:
  source ../admin-venv/bin/activate # ..\admin-venv\Scripts\activate on Windows
