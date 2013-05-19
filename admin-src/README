@@ -1,0 +1,24 @@
+This is the administration interface for MHC-PMS apotheker application.
+It used the Python based Django application framework. The interface is auto-generated
+from the database.
+
+Install following Software:
+* Python 2.7
+* PIP
+* virtualenv
+* Python MySQL Driver (mysqldb)
+
+E.g. Debian/Ubuntu:
+sudo apt-get install python-pip python-virtualenv python-mysqldb
+
+Open a terminal/cmd and enter following commands:
+ cd <your projects>/ch.bfh.bti7081.s2013.blue/admin-src
+ virtualenv ../admin-venv
+ source ../admin-venv/bin/activate # ..\admin-venv\Scripts\activate on Windows
+ pip install -r requirements.txt
+
+From now on, to start the server you have to do:
+ source ../admin-venv/bin/activate # ..\admin-venv\Scripts\activate on Windows
+ python manage.py runserver
+
+The application is now accesible under http://localhost:8000/admin/ 
