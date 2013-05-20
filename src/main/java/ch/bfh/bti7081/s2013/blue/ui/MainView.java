@@ -23,6 +23,14 @@ public class MainView extends VerticalLayout implements View, IBackButtonView {
 		addComponent(drugSearchButton);
 		addComponent(reportCreateButton);
 		addComponent(reportSearchButton);
+		
+		patientSearchButton.setWidth("100%");
+		drugSearchButton.setWidth("100%");
+		reportCreateButton.setWidth("100%");
+		reportSearchButton.setWidth("100%");
+		
+		setMargin(true);
+		setSpacing(true);
 	}
 	
 	@Override
