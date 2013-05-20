@@ -1,9 +1,9 @@
 package ch.bfh.bti7081.s2013.blue.ui;
 
 import ch.bfh.bti7081.s2013.blue.entities.Patient;
+import ch.bfh.bti7081.s2013.blue.service.PatientService;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -36,7 +36,7 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
 		formLayout.addComponent(searchButton);
 		addComponent(formLayout);
 		
-        patientContainer = JPAContainerFactory.make(Patient.class, "mhc-pms");
+        patientContainer = PatientService.createContainer();
 
 		table = new Table("Patients");
 		table.setContainerDataSource(patientContainer);
