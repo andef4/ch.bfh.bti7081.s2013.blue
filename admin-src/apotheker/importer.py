@@ -12,11 +12,10 @@ from apotheker.models import Activesubstance, Medicaldrug, Manufacturer,\
     MedicaldrugActivesubstance
 
 def import_meds():
-    #f = codecs.open('/home/corn/temp/swissmedic.csv', 'r', 'utf-8')
-    f = open('/home/corn/temp/swissmedic.csv', 'r')
+    f = open('./swissmedic.csv', 'r')
     
     blacklist = [u'Tierarzneimittel', u'Blutprodukte', u'Transplantatprodukte']
-    reader = csv.reader(f, delimiter=',', quotechar='"')
+    reader = csv.reader(f, dialect=csv.excel)
     
     for row in reader:
         if row[7] in blacklist:

@@ -7,3 +7,4 @@ target/
 .pydevproject
 *.pyc
 admin-venv/
+swissmedic.csv

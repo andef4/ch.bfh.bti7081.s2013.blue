@@ -1,0 +1,13 @@
+* You have to setup the admin-src application to run this script
+* You need to run the java application once to generate the database tables
+
+* Download Excel File from Swissmedic: http://www.swissmedic.ch/daten/00080/00251/index.html?lang=de
+  => Excel-Version erweiterte Präparateliste
+* Open file in Excel/Libre/OpenOffice
+* Remove first 3 rows (header)
+* Save as csv, field seperator: , text seperator: "
+* Save to swissmedic.csv in this directory (admin-src)
+* Run Python shell: python manage.py shell
+* Enter:
+# from apotheker.importer import import_meds
+# import_meds()
