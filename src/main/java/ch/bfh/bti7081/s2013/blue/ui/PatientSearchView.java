@@ -36,7 +36,7 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
 		formLayout.addComponent(searchButton);
 		addComponent(formLayout);
 		
-        patientContainer = PatientService.createContainer();
+        patientContainer = PatientService.getInstance().createContainer();
 
 		table = new Table("Patients");
 		table.setContainerDataSource(patientContainer);
