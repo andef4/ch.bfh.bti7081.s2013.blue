@@ -9,6 +9,11 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+/*
+ * This is the main and only UI used. We use a com.vaadin.navigator.Navigator
+ * to navigate between different views.
+ * @author andef4
+ */
 @SuppressWarnings("serial")
 public class NavigatorUI extends UI {
 	
@@ -31,7 +36,9 @@ public class NavigatorUI extends UI {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (panel.getContent() instanceof IBackButtonView) {
+					// get current displayed view
 					IBackButtonView currentView = (IBackButtonView) panel.getContent();
+					// go back to the view defined on the current View
 					getNavigator().navigateTo(currentView.getBackView());
 				}
 			}
@@ -52,17 +59,15 @@ public class NavigatorUI extends UI {
 		navigator.addView(REPORT_CREATE_VIEW, ReportCreateView.class);
 		navigator.addView(REPORT_SEARCH_VIEW, ReportSearchView.class);
 		
-		
-		
 		navigator.addViewChangeListener(new ViewChangeListener() {
 			@Override
 			public boolean beforeViewChange(ViewChangeEvent event) {
-				return true;
+				return true; // always change view
 			}
 			@Override
 			public void afterViewChange(ViewChangeEvent event) {
-				event.getNewView();
 				if (event.getNewView() instanceof IBackButtonView) {
+					// hide back button if getBackView() returns null
 					IBackButtonView currentView = (IBackButtonView) event.getNewView();
 					button.setVisible(currentView.getBackView() != null);
 				}
