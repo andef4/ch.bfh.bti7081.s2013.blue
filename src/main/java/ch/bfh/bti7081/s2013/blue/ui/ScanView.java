@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2013.blue.ui;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -24,6 +25,25 @@ public class ScanView extends VerticalLayout implements View, IBackButtonView{
 		url = URLEncoder.encode(url, "UTF-8");
 		Link link = new Link("scan", new ExternalResource("http://zxing.appspot.com/scan?ret=" + url));
 		addComponent(link);
+		
+		
+		@SuppressWarnings("unchecked")
+		Map<String, ScanPrescription> drugsToScan = (Map<String, ScanPrescription>) UI.getCurrent().getSession().getAttribute(NavigatorUI.DRUGS_TO_SCAN_SESSION);
+		
+		for (ScanPrescription scanPrescription : drugsToScan.values()) {
+			String caption;
+			if (scanPrescription.isScanned()) {
+				caption = "[x] ";
+			} else {
+				caption ="[ ] ";
+			}
+			
+			caption += scanPrescription.getCount() + " x " + scanPrescription.getMedicalDrug().getName();
+			
+			Label label = new Label(caption);
+			addComponent(label);
+		}
+		
 	}
 	
 	@Override
