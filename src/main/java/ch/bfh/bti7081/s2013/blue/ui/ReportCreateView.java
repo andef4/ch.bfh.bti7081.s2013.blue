@@ -39,15 +39,15 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
 		formLayout = new FormLayout();
 		firstNameLabel = new Label();
 		lastNameLabel = new Label();
-		//comboboxDrug = new Select();
+		comboboxDrug = new Select();
 		rtReport = new RichTextArea();
 		firstNameLabel.setCaption("Vorname:");
 		lastNameLabel.setCaption("Nachname:");
 		rtReport.setCaption("Report: ");
-		//comboboxDrug.setCaption("Medikament: ");
+		comboboxDrug.setCaption("Medikament: ");
 		formLayout.addComponent(firstNameLabel);
 		formLayout.addComponent(lastNameLabel);
-		//formLayout.addComponent(comboboxDrug);
+		formLayout.addComponent(comboboxDrug);
 		formLayout.addComponent(rtReport);
 		addComponent(formLayout);
 		
@@ -77,12 +77,11 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
 		
 		List<PrescriptionItem> prescriptionItems = PrescriptionService.getInstance().getPrescriptions(patient);
 	
-		BeanItemContainer<PrescriptionItem> container = new BeanItemContainer<PrescriptionItem>(PrescriptionItem.class);
-
-		comboboxDrug = new Select("Prescriptions", container);
+		for (PrescriptionItem prescriptionItem : prescriptionItems) {
 		
-		comboboxDrug.setCaption("Medikament: ");
-		formLayout.addComponent(comboboxDrug);
+			comboboxDrug.addItem(prescriptionItem);
+			comboboxDrug.setItemCaption(prescriptionItem, prescriptionItem.getMedicalDrug().getName());
+		}
 	}
 
 
