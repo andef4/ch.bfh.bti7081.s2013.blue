@@ -140,7 +140,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 					@SuppressWarnings("unchecked")
 					Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
 					CheckBox checkBox = property.getValue();
-					if (checkBox.getValue() == true && (checkBox.getData() instanceof Entry<?, ?>)) {
+					if (checkBox.getValue() && (checkBox.getData() instanceof Entry<?, ?>)) {
 						@SuppressWarnings("unchecked")
 						Entry<MedicalDrug, Integer> entry = (Entry<MedicalDrug, Integer>) checkBox.getData();
 						

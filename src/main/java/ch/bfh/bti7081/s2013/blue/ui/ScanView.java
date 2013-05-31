@@ -54,7 +54,7 @@ public class ScanView extends VerticalLayout implements View, IBackButtonView{
 	@Override
 	public void enter(ViewChangeEvent event) {
 		String parameters = event.getParameters();
-		if (parameters != "") {
+		if (!parameters.equals("")) {
 			Long id = Long.parseLong(event.getParameters());
 			label.setCaption(id.toString());
 		}
