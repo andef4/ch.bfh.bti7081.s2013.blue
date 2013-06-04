@@ -75,4 +75,5 @@ public class MedicalDrug {
 	public List<ActiveSubstance> getActiveSubstances() {
 		return activeSubstances;
 	}
+	
 }
