@@ -9,6 +9,11 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+/*
+ * This is the main and only UI used. We use a com.vaadin.navigator.Navigator
+ * to navigate between different views.
+ * @author andef4
+ */
 @SuppressWarnings("serial")
 public class NavigatorUI extends UI {
 	
@@ -17,6 +22,7 @@ public class NavigatorUI extends UI {
 	public static String MAIN_VIEW = ""; // this is the initial view, it must be blank
 	public static String PATIENT_SEARCH_VIEW = "patient_search";
 	public static String PATIENT_DETAIL_VIEW = "patient_detail";
+	public static String SCAN_VIEW = "scan";
 	public static String DRUG_SEARCH_VIEW = "drug_search";
 	public static String DRUG_DETAIL_VIEW = "drug_detail";
 	public static String REPORT_CREATE_VIEW = "report_create_view";
@@ -31,7 +37,9 @@ public class NavigatorUI extends UI {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (panel.getContent() instanceof IBackButtonView) {
+					// get current displayed view
 					IBackButtonView currentView = (IBackButtonView) panel.getContent();
+					// go back to the view defined on the current View
 					getNavigator().navigateTo(currentView.getBackView());
 				}
 			}
@@ -46,23 +54,23 @@ public class NavigatorUI extends UI {
 		navigator.addView(MAIN_VIEW, MainView.class);
 		navigator.addView(PATIENT_SEARCH_VIEW, PatientSearchView.class);
 		navigator.addView(PATIENT_DETAIL_VIEW, PatientDetailView.class);
+		navigator.addView(SCAN_VIEW, ScanView.class);
 		
 		navigator.addView(DRUG_SEARCH_VIEW, DrugSearchView.class);
 		navigator.addView(DRUG_DETAIL_VIEW, DrugDetailView.class);
+		
 		navigator.addView(REPORT_CREATE_VIEW, ReportCreateView.class);
 		navigator.addView(REPORT_SEARCH_VIEW, ReportSearchView.class);
-		
-		
 		
 		navigator.addViewChangeListener(new ViewChangeListener() {
 			@Override
 			public boolean beforeViewChange(ViewChangeEvent event) {
-				return true;
+				return true; // always change view
 			}
 			@Override
 			public void afterViewChange(ViewChangeEvent event) {
-				event.getNewView();
 				if (event.getNewView() instanceof IBackButtonView) {
+					// hide back button if getBackView() returns null
 					IBackButtonView currentView = (IBackButtonView) event.getNewView();
 					button.setVisible(currentView.getBackView() != null);
 				}

@@ -19,7 +19,7 @@ import com.vaadin.ui.Button.ClickEvent;
 public class DrugSearchView extends VerticalLayout implements View, IBackButtonView {
 
 	private TextField drugNameField;
-	private TextField idNameField;
+	//private TextField idNameField;
 	private Button searchButton;
 	private JPAContainer<MedicalDrug> drugContainer;
 	private Table table;
@@ -29,20 +29,21 @@ public class DrugSearchView extends VerticalLayout implements View, IBackButtonV
 		
 		FormLayout formLayout = new FormLayout();
 		drugNameField = new TextField("Name");
-		idNameField = new TextField("ID");
+		//idNameField = new TextField("Manufacturer");
 		searchButton = new Button("Search");
 		formLayout.addComponent(drugNameField);
-		formLayout.addComponent(idNameField);
+		//formLayout.addComponent(idNameField);
 		formLayout.addComponent(searchButton);
 		addComponent(formLayout);
 		
-        drugContainer = DrugService.createContainer();
+        DrugService.getInstance();
+		drugContainer = DrugService.createContainer();
 
 		table = new Table("Medikamente");
 		table.setContainerDataSource(drugContainer);
-		drugContainer.addNestedContainerProperty("manufacturer.id");
-		table.setVisibleColumns(new String[]{"id", "name", "swissmedicNumber", "manufacturer.id"});
-		table.setColumnHeader("manufacturer.id", "manufacturer");
+		//drugContainer.addNestedContainerProperty("manufacturer.name");
+		table.setVisibleColumns(new String[]{"name","stock"});
+		table.setColumnHeader("manufacturer.name", "manufacturer");
 		
 		table.setImmediate(true);
 		addComponent(table);
@@ -55,19 +56,20 @@ public class DrugSearchView extends VerticalLayout implements View, IBackButtonV
 		searchButton.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				drugContainer.removeContainerFilters("id");
+				//drugContainer.removeContainerFilters("id");
 				drugContainer.removeContainerFilters("name");
-				drugContainer.removeContainerFilters("swissmedicNumber");
-				drugContainer.removeContainerFilters("manufacturer");
+				//drugContainer.removeContainerFilters("swissmedicNumber");
+				//drugContainer.removeContainerFilters("manufacturer");
+				drugContainer.removeContainerFilters("stock");
 				
 				String firstName = drugNameField.getValue().trim();
-				String lastName = idNameField.getValue().trim();
+				//String lastName = idNameField.getValue().trim();
 				if (firstName.length() > 0) {
 					drugContainer.addContainerFilter("name", drugNameField.getValue(), true, true);
 				}
-				if (lastName.length() > 0) {
-					drugContainer.addContainerFilter("id", idNameField.getValue(), true, true);
-				}
+				//if (lastName.length() > 0) {
+					//drugContainer.addContainerFilter("manufacturer.name", idNameField.getValue(), true, true);
+				//}
 			}
 		});
 	}
@@ -76,7 +78,8 @@ public class DrugSearchView extends VerticalLayout implements View, IBackButtonV
 		table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.DRUG_DETAIL_VIEW);
+				String name = (String) event.getItemId();
+				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.DRUG_DETAIL_VIEW + "/" + name);
 			}
 		});
 		

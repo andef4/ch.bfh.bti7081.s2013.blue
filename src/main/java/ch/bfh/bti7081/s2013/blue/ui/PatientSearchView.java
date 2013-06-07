@@ -36,12 +36,12 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
 		formLayout.addComponent(searchButton);
 		addComponent(formLayout);
 		
-        patientContainer = PatientService.createContainer();
+        patientContainer = PatientService.getInstance().createContainer();
 
 		table = new Table("Patients");
 		table.setContainerDataSource(patientContainer);
 		table.setVisibleColumns(new String[]{"firstName", "lastName", "birthday"});
-		table.setImmediate(true);
+		table.setSelectable(true);
 		addComponent(table);
 		
 		initButton();
@@ -71,7 +71,8 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
 		table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW);
+				Long id = (Long) event.getItemId();
+				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW + "/" + id);
 			}
 		});
 		
