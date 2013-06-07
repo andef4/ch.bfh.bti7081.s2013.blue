@@ -76,7 +76,6 @@ public class MedicalDrug {
 		return activeSubstances;
 	}
 	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -97,5 +96,4 @@ public class MedicalDrug {
 			return false;
 		return true;
 	}
-
 }
