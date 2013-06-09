@@ -1,19 +1,19 @@
 package ch.bfh.bti7081.s2013.blue.ui;
 
 import ch.bfh.bti7081.s2013.blue.entities.MedicalDrug;
-import ch.bfh.bti7081.s2013.blue.service.DrugService;
+import ch.bfh.bti7081.s2013.blue.service.MedicalDrugService;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
 @SuppressWarnings("serial")
 public class DrugSearchView extends VerticalLayout implements View, IBackButtonView {
@@ -36,7 +36,7 @@ public class DrugSearchView extends VerticalLayout implements View, IBackButtonV
 		formLayout.addComponent(searchButton);
 		addComponent(formLayout);
 		
-        drugContainer = DrugService.createContainer();
+        drugContainer = MedicalDrugService.getInstance().createContainer();
         drugContainer.addNestedContainerProperty("manufacturer.id");
 		table = new Table("Medikamente");
 		table.setContainerDataSource(drugContainer);
