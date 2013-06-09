@@ -33,6 +33,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 	private Label lastNameLabel;
 	private TreeTable prescriptionTable;
 	private Button scanButton;
+    private long patientId;
 
 	public PatientDetailView() {
 		setSizeFull();
@@ -61,8 +62,8 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Long id = Long.parseLong(event.getParameters());
-		Patient patient = PatientService.getInstance().createContainer().getItem(id).getEntity();
+		patientId = Long.parseLong(event.getParameters());
+		Patient patient = PatientService.getInstance().createContainer().getItem(patientId).getEntity();
 		firstNameLabel.setValue(patient.getFirstName());
 		lastNameLabel.setValue(patient.getLastName());
 		
@@ -71,7 +72,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 			String date = DateFormat.getInstance().format(dailyPrescription.getDate());
 			
 			TreeCheckBox box = new TreeCheckBox(date);
-			Object dateId = prescriptionTable.addItem(new Object[] {box}, date);
+			Object dateId = prescriptionTable.addItem(new Object[] {box}, null);
 			box.setData(dateId);
 			
 			addDailyPrescription("Morgens", dateId, dailyPrescription.getMorningDrugs());
@@ -135,28 +136,36 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 			public void buttonClick(ClickEvent event) {
 				Map<String, ScanPrescription> drugsToScan = new HashMap<String, ScanPrescription>();
 				
-				Collection<?> itemIds = prescriptionTable.getItemIds();
-				for (Object id : itemIds) {
-					@SuppressWarnings("unchecked")
-					Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
-					CheckBox checkBox = property.getValue();
-					if (checkBox.getValue() && (checkBox.getData() instanceof Entry<?, ?>)) {
-						@SuppressWarnings("unchecked")
-						Entry<MedicalDrug, Integer> entry = (Entry<MedicalDrug, Integer>) checkBox.getData();
-						
-						ScanPrescription scanPrescription = drugsToScan.get(entry.getKey().getSwissmedicNumber());
-						if (scanPrescription == null) {
-							scanPrescription = new ScanPrescription();
-							scanPrescription.setCount(entry.getValue());
-							scanPrescription.setMedicalDrug(entry.getKey());
-						} else {
-							scanPrescription.setCount(scanPrescription.getCount() + entry.getValue());
-						}
-						drugsToScan.put(entry.getKey().getSwissmedicNumber(), scanPrescription);
-					}
+				// iterate over item hierarchy to find checked drugs
+				Collection<?> dateIds = prescriptionTable.getItemIds();
+				for (Object dateId : dateIds) {
+				    Collection<?> timeIds = prescriptionTable.getChildren(dateId);
+				    for (Object timeId : timeIds) {
+				        Collection<?> itemIds = prescriptionTable.getChildren(timeId);
+        				for (Object id : itemIds) {
+        					@SuppressWarnings("unchecked")
+        					Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
+        					CheckBox checkBox = property.getValue();
+        					if (checkBox.getValue()) {
+        						@SuppressWarnings("unchecked")
+        						Entry<MedicalDrug, Integer> entry = (Entry<MedicalDrug, Integer>) checkBox.getData();
+        						
+        						// safe drugs chosen to scan in session map
+        						ScanPrescription scanPrescription = drugsToScan.get(entry.getKey().getSwissmedicNumber());
+        						if (scanPrescription == null) {
+        							scanPrescription = new ScanPrescription();
+        							scanPrescription.setCount(entry.getValue());
+        							scanPrescription.setMedicalDrug(entry.getKey());
+        						} else {
+        							scanPrescription.setCount(scanPrescription.getCount() + entry.getValue());
+        						}
+        						drugsToScan.put(entry.getKey().getSwissmedicNumber(), scanPrescription);
+        					}
+        				}
+				    }
 				}
 				getSession().setAttribute(NavigatorUI.DRUGS_TO_SCAN_SESSION, drugsToScan);
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW);
+				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW + "/" + patientId);
 			}
 		});
 	}
