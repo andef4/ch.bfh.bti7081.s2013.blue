@@ -19,6 +19,7 @@ public class NavigatorUI extends UI {
 	
 	private Navigator navigator;
 	
+	// view names
 	public static String MAIN_VIEW = ""; // this is the initial view, it must be blank
 	public static String PATIENT_SEARCH_VIEW = "patient_search";
 	public static String PATIENT_DETAIL_VIEW = "patient_detail";
@@ -27,6 +28,9 @@ public class NavigatorUI extends UI {
 	public static String DRUG_DETAIL_VIEW = "drug_detail";
 	public static String REPORT_CREATE_VIEW = "report_create_view";
 	public static String REPORT_SEARCH_VIEW = "report_search_view";
+	
+	// session variable names
+	public static final String DRUGS_TO_SCAN_SESSION = "drugsToScan";
 	
 	@Override
 	protected void init(VaadinRequest request) {
