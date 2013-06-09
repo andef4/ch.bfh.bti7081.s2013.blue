@@ -62,4 +62,9 @@ public class PrescriptionService {
 		}
 		return dailyPrescriptions;
 	}
+
+    public List<PrescriptionItem> getPrescriptions(Patient patient) {
+        // TODO gassm9: implemented
+        return new ArrayList<PrescriptionItem>();
+    }
 }

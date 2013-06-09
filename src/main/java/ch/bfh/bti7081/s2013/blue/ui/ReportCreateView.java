@@ -17,9 +17,9 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.RichTextArea;
-import com.vaadin.ui.Select;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class ReportCreateView extends VerticalLayout implements View, IBackButtonView {
 
 	private FormLayout formLayout;
@@ -35,7 +35,7 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
 		formLayout = new FormLayout();
 		firstNameLabel = new Label();
 		lastNameLabel = new Label();
-		comboboxDrug = new Select();
+		comboboxDrug = new ComboBox();
 		rtReport = new RichTextArea();
 		firstNameLabel.setCaption("Vorname:");
 		lastNameLabel.setCaption("Nachname:");
