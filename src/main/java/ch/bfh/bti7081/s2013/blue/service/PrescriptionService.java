@@ -65,6 +65,16 @@ public class PrescriptionService {
 
     public List<PrescriptionItem> getPrescriptions(Patient patient) {
         // TODO gassm9: implemented
-        return new ArrayList<PrescriptionItem>();
+		EntityManager em = PatientService.getInstance().getEntityManager();
+		
+		List<PrescriptionItem> prescriptions = new ArrayList<PrescriptionItem>();
+
+		TypedQuery<PrescriptionItem> query = em.createQuery("SELECT item FROM PrescriptionItem item " +
+				   "WHERE item.prescription.patient=:patient", PrescriptionItem.class);
+		query.setParameter("patient", patient);
+		prescriptions = query.getResultList();
+		
+		return prescriptions;    
+		
     }
 }
