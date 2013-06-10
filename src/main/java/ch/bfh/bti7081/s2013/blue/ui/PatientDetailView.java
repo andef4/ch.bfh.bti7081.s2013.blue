@@ -19,6 +19,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
@@ -33,6 +34,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 	private Label lastNameLabel;
 	private TreeTable prescriptionTable;
 	private Button scanButton;
+	private Button reportButton;
     private long patientId;
 
 	public PatientDetailView() {
@@ -50,7 +52,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 		
 		// prescriptions
 		scanButton = new Button("Scan Medikamente");
-		addComponent(scanButton);
+		addComponent(scanButton);		
 		prescriptionTable = new TreeTable();
 		prescriptionTable.setWidth("400px");
 		addComponent(prescriptionTable);
@@ -58,6 +60,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 		prescriptionTable.addContainerProperty("checkbox", CheckBox.class, "");
 		
 		initScanButton();
+		initReportButton();
 	}
 	
 	@Override
@@ -169,6 +172,20 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 			}
 		});
 	}
+	
+	private void initReportButton() {
+		reportButton = new Button("Report erfassen", new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.REPORT_CREATE_VIEW + "/" + patientId);
+				
+			}
+		});
+		addComponent(reportButton);
+
+	}
+
 
 	@Override
 	public String getBackView() {
