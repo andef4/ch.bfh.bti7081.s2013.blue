@@ -41,7 +41,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 		formLayout.addComponent(firstNameLabel);
 		formLayout.addComponent(lastNameLabel);
 		addComponent(formLayout);
-		
+	
 		// prescriptions
 		Button scanButton = new Button("Scan Medikamente", new Button.ClickListener() {
 			@Override
@@ -49,21 +49,25 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW);
 			}
 		});
-		addComponent(scanButton);
+		
+
+		addComponent(scanButton); {
 		prescriptionTable = new TreeTable();
 		prescriptionTable.setWidth("400px");
 		addComponent(prescriptionTable);
 		prescriptionTable.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
 		prescriptionTable.addContainerProperty("checkbox", CheckBox.class, "");
 	}
+		
+}
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		Long id = Long.parseLong(event.getParameters());
 		Patient patient = PatientService.getInstance().createContainer().getItem(id).getEntity();
-		firstNameLabel.setValue(patient.getFirstName());
+    	firstNameLabel.setValue(patient.getFirstName());
 		lastNameLabel.setValue(patient.getLastName());
-		
+			
 		List<DailyPrescription> dailyPrescriptions = PrescriptionService.getInstance().getDailyPrescriptions(patient);
 		for (DailyPrescription dailyPrescription : dailyPrescriptions) {
 			String date = DateFormat.getInstance().format(dailyPrescription.getDate());
@@ -76,7 +80,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
 		}
 	}
 	
-	private void addDailyPrescription(String name, Object parentId, Map<MedicalDrug, Integer> drugs) {
+	 private void addDailyPrescription(String name, Object parentId, Map<MedicalDrug, Integer> drugs) {
 		if (drugs.size() == 0) {
 			return;
 		}
