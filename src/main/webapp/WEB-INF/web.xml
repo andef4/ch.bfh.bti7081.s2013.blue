@@ -8,7 +8,7 @@
     </context-param>
     <servlet>
         <servlet-name>Vaadin Application Servlet</servlet-name>
-        <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+        <servlet-class>ch.bfh.bti7081.s2013.blue.utils.CustomVaadinServlet</servlet-class>
         <init-param>
             <description>Vaadin UI to display</description>
             <param-name>UI</param-name>

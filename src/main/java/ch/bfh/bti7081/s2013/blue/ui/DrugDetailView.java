@@ -2,7 +2,7 @@ package ch.bfh.bti7081.s2013.blue.ui;
 
 
 import ch.bfh.bti7081.s2013.blue.entities.MedicalDrug;
-import ch.bfh.bti7081.s2013.blue.service.DrugService;
+import ch.bfh.bti7081.s2013.blue.service.MedicalDrugService;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -40,7 +40,7 @@ public  class DrugDetailView extends VerticalLayout implements View, IBackButton
 	
 	public void enter (ViewChangeEvent event) {
 		Long id = Long.parseLong(event.getParameters());
-		MedicalDrug medicaldrug = DrugService.createContainer().getItem(id).getEntity();
+		MedicalDrug medicaldrug = MedicalDrugService.getInstance().createContainer().getItem(id).getEntity();
 		drugNameLabel.setValue(medicaldrug.getName());
 		swissNameLabel.setValue(medicaldrug.getSwissmedicNumber());
 		idNameLabel.setValue(medicaldrug.getManufacturer().getName());
