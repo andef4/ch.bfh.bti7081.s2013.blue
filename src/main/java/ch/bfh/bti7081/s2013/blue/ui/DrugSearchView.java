@@ -87,8 +87,7 @@ public class DrugSearchView extends VerticalLayout implements View, IBackButtonV
 
 	@Override
 	public String getBackView() {
-		// TODO Auto-generated method stub
-		return null;
+		return NavigatorUI.MAIN_VIEW;
 	}
 
 	@Override
