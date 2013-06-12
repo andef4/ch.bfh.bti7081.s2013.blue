@@ -28,6 +28,7 @@ public class NavigatorUI extends UI {
 	public static String DRUG_DETAIL_VIEW = "drug_detail";
 	public static String REPORT_CREATE_VIEW = "report_create_view";
 	public static String REPORT_SEARCH_VIEW = "report_search_view";
+	public static String REPORT_DETAIL_VIEW = "report_detail_view";
 	
 	// session variable names
 	public static final String DRUGS_TO_SCAN_SESSION = "drugsToScan";
@@ -65,6 +66,7 @@ public class NavigatorUI extends UI {
 		
 		navigator.addView(REPORT_CREATE_VIEW, ReportCreateView.class);
 		navigator.addView(REPORT_SEARCH_VIEW, ReportSearchView.class);
+		navigator.addView(REPORT_DETAIL_VIEW, ReportDetailView.class);
 		
 		navigator.addViewChangeListener(new ViewChangeListener() {
 			@Override

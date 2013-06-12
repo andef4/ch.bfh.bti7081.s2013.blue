@@ -53,8 +53,7 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
 		addComponent(table);
 		
 		initButton();
-		//initTable();
-		
+		initTable();
 	}
 	
 	private void initButton() {
@@ -86,10 +85,9 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				Long id = (Long) event.getItemId();
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW + "/" + id);
+				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.REPORT_DETAIL_VIEW + "/" + id);
 			}
-		});
-		
+		});	
 	}
 	
 	@Override
