@@ -18,76 +18,76 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class PatientSearchView extends VerticalLayout implements View, IBackButtonView {
 
-	private TextField firstNameField;
-	private TextField lastNameField;
-	private Button searchButton;
-	private JPAContainer<Patient> patientContainer;
-	private Table table;
+    private TextField firstNameField;
+    private TextField lastNameField;
+    private Button searchButton;
+    private JPAContainer<Patient> patientContainer;
+    private Table table;
 
-	public PatientSearchView() {
-		setSizeFull();
-		
-		FormLayout formLayout = new FormLayout();
-		firstNameField = new TextField("Vorname");
-		lastNameField = new TextField("Nachname");
-		searchButton = new Button("Search");
-		formLayout.addComponent(firstNameField);
-		formLayout.addComponent(lastNameField);
-		formLayout.addComponent(searchButton);
-		addComponent(formLayout);
-		
+    public PatientSearchView() {
+        setSizeFull();
+        
+        FormLayout formLayout = new FormLayout();
+        firstNameField = new TextField("Vorname");
+        lastNameField = new TextField("Nachname");
+        searchButton = new Button("Search");
+        formLayout.addComponent(firstNameField);
+        formLayout.addComponent(lastNameField);
+        formLayout.addComponent(searchButton);
+        addComponent(formLayout);
+        
         patientContainer = PatientService.getInstance().createContainer();
 
-		table = new Table("Patients");
-		table.setContainerDataSource(patientContainer);
-		table.setVisibleColumns(new String[]{"firstName", "lastName", "birthday"});
-		table.setSelectable(true);
-		addComponent(table);
-		
-		initButton();
-		initTable();
-	}
-	
-	private void initButton() {
-		searchButton.addClickListener(new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				patientContainer.removeContainerFilters("firstName");
-				patientContainer.removeContainerFilters("lastName");
-				
-				String firstName = firstNameField.getValue().trim();
-				String lastName = lastNameField.getValue().trim();
-				if (firstName.length() > 0) {
-					patientContainer.addContainerFilter("firstName", firstNameField.getValue(), true, true);
-				}
-				if (lastName.length() > 0) {
-					patientContainer.addContainerFilter("lastName", lastNameField.getValue(), true, true);
-				}
-			}
-		});
-	}
-	
-	private void initTable() {
-		table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
-			@Override
-			public void itemClick(ItemClickEvent event) {
-				Long id = (Long) event.getItemId();
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW + "/" + id);
-			}
-		});
-		
-	}
+        table = new Table("Patients");
+        table.setContainerDataSource(patientContainer);
+        table.setVisibleColumns(new String[]{"firstName", "lastName", "birthday"});
+        table.setSelectable(true);
+        addComponent(table);
+        
+        initButton();
+        initTable();
+    }
+    
+    private void initButton() {
+        searchButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                patientContainer.removeContainerFilters("firstName");
+                patientContainer.removeContainerFilters("lastName");
+                
+                String firstName = firstNameField.getValue().trim();
+                String lastName = lastNameField.getValue().trim();
+                if (firstName.length() > 0) {
+                    patientContainer.addContainerFilter("firstName", firstNameField.getValue(), true, true);
+                }
+                if (lastName.length() > 0) {
+                    patientContainer.addContainerFilter("lastName", lastNameField.getValue(), true, true);
+                }
+            }
+        });
+    }
+    
+    private void initTable() {
+        table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
+            @Override
+            public void itemClick(ItemClickEvent event) {
+                Long id = (Long) event.getItemId();
+                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW + "/" + id);
+            }
+        });
+        
+    }
 
-	
+    
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+        
+    }
 
-	@Override
-	public String getBackView() {
-		return NavigatorUI.MAIN_VIEW;
-	}
+    @Override
+    public String getBackView() {
+        return NavigatorUI.MAIN_VIEW;
+    }
 
 }

@@ -9,29 +9,29 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 public class MedicalDrugService implements IService {
 
-	private static MedicalDrugService medicalDrugService = null;
+    private static MedicalDrugService medicalDrugService = null;
 
-	/* 
-	 * @return returns a new Vaadin JPAContainer instance for the Patient entity
-	 */
-	public JPAContainer<MedicalDrug> createContainer() {
-		return JPAContainerFactory.make(MedicalDrug.class, PERSISTENCE_UNIT_NAME);
-	}
-	
-	public EntityManager getEntityManager() {
-		return JPAContainerFactory.createEntityManagerForPersistenceUnit(PERSISTENCE_UNIT_NAME);
-	}
+    /* 
+     * @return returns a new Vaadin JPAContainer instance for the Patient entity
+     */
+    public JPAContainer<MedicalDrug> createContainer() {
+        return JPAContainerFactory.make(MedicalDrug.class, PERSISTENCE_UNIT_NAME);
+    }
+    
+    public EntityManager getEntityManager() {
+        return JPAContainerFactory.createEntityManagerForPersistenceUnit(PERSISTENCE_UNIT_NAME);
+    }
 
-	/* singleton accessor method */
-	public static MedicalDrugService getInstance() {
-		if (medicalDrugService == null) {
-			medicalDrugService = new MedicalDrugService();
-		}
-		return medicalDrugService;
-	}
-	
-	/* private constructor for singleton */
-	private MedicalDrugService() {
-	}
+    /* singleton accessor method */
+    public static MedicalDrugService getInstance() {
+        if (medicalDrugService == null) {
+            medicalDrugService = new MedicalDrugService();
+        }
+        return medicalDrugService;
+    }
+    
+    /* private constructor for singleton */
+    private MedicalDrugService() {
+    }
 
 }

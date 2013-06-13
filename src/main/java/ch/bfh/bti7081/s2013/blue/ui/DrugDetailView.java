@@ -13,53 +13,53 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 public  class DrugDetailView extends VerticalLayout implements View, IBackButtonView {
-	private Label drugNameLabel;
-	private Label idNameLabel;
-	private Label swissNameLabel;
-	
+    private Label drugNameLabel;
+    private Label idNameLabel;
+    private Label swissNameLabel;
+    
 
-	public DrugDetailView() {
-		setSizeFull();
-	
-	    //information form
-		FormLayout formLayout = new FormLayout();
-		drugNameLabel = new Label();
-		swissNameLabel = new Label();
-		idNameLabel = new Label();
-		drugNameLabel.setCaption("Name:");
-		swissNameLabel.setCaption("MedicNumber:");
-		idNameLabel.setCaption("Manufacturer:");	
-		formLayout.addComponent(drugNameLabel);
-		formLayout.addComponent(swissNameLabel);
-		formLayout.addComponent(idNameLabel);		
-		addComponent(formLayout);
-				
-		
-	}
-		
-	
-	public void enter (ViewChangeEvent event) {
-		Long id = Long.parseLong(event.getParameters());
-		MedicalDrug medicaldrug = MedicalDrugService.getInstance().createContainer().getItem(id).getEntity();
-		drugNameLabel.setValue(medicaldrug.getName());
-		swissNameLabel.setValue(medicaldrug.getSwissmedicNumber());
-		idNameLabel.setValue(medicaldrug.getManufacturer().getName());
-		
-		
-		
-		
-	}
-	
+    public DrugDetailView() {
+        setSizeFull();
+    
+        //information form
+        FormLayout formLayout = new FormLayout();
+        drugNameLabel = new Label();
+        swissNameLabel = new Label();
+        idNameLabel = new Label();
+        drugNameLabel.setCaption("Name:");
+        swissNameLabel.setCaption("MedicNumber:");
+        idNameLabel.setCaption("Manufacturer:");    
+        formLayout.addComponent(drugNameLabel);
+        formLayout.addComponent(swissNameLabel);
+        formLayout.addComponent(idNameLabel);        
+        addComponent(formLayout);
+                
+        
+    }
+        
+    
+    public void enter (ViewChangeEvent event) {
+        Long id = Long.parseLong(event.getParameters());
+        MedicalDrug medicaldrug = MedicalDrugService.getInstance().createContainer().getItem(id).getEntity();
+        drugNameLabel.setValue(medicaldrug.getName());
+        swissNameLabel.setValue(medicaldrug.getSwissmedicNumber());
+        idNameLabel.setValue(medicaldrug.getManufacturer().getName());
+        
+        
+        
+        
+    }
+    
 
-	
+    
 
-	@Override
-	public String getBackView() {
-		return NavigatorUI.DRUG_SEARCH_VIEW;
-	}
+    @Override
+    public String getBackView() {
+        return NavigatorUI.DRUG_SEARCH_VIEW;
+    }
 
 
-	
+    
 }
 
-	
+    
