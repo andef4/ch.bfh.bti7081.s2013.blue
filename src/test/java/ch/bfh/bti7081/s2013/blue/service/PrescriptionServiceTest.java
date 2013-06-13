@@ -50,7 +50,7 @@ public class PrescriptionServiceTest {
     @Before
     public void setUp() {
         em.getTransaction().begin();
-        Patient patient = new Patient();
+        patient = new Patient();
         patient.setFirstName("Fitz");
         patient.setLastName("Berger");
         Calendar calendar = Calendar.getInstance();
@@ -97,17 +97,17 @@ public class PrescriptionServiceTest {
             Calendar endDate = Calendar.getInstance();
 
             endDate.add(Calendar.DAY_OF_MONTH, 3);
-            item1 = getPrescriptionItem(medicalDrug, startDate, endDate);
+            item1 = getPrescriptionItem(medicalDrug, startDate, endDate, prescription);
             em.persist(item1);
 
             startDate.add(Calendar.DAY_OF_MONTH, 1);
             endDate.add(Calendar.DAY_OF_MONTH, 1);
-            item2 = getPrescriptionItem(medicalDrug, startDate, endDate);
+            item2 = getPrescriptionItem(medicalDrug, startDate, endDate, prescription);
             em.persist(item2);
 
             startDate.add(Calendar.DAY_OF_MONTH, 2);
             endDate.add(Calendar.DAY_OF_MONTH, 2);
-            item3 = getPrescriptionItem(medicalDrug, startDate, endDate);
+            item3 = getPrescriptionItem(medicalDrug, startDate, endDate, prescription);
             em.persist(item3);
 
             em.getTransaction().commit();
@@ -125,6 +125,8 @@ public class PrescriptionServiceTest {
 
         } finally {
             // clean up database
+            em.getTransaction().begin();
+            
             if (prescription != null && prescription.getId() != 0) {
                 em.remove(prescription);
             }
@@ -137,6 +139,7 @@ public class PrescriptionServiceTest {
             if (item3 != null && item3.getId() != 0) {
                 em.remove(item3);
             }
+            em.getTransaction().commit();
         }
 
     }
@@ -146,10 +149,11 @@ public class PrescriptionServiceTest {
      * @param drug The drug of the PrescriptionItem
      * @param startDate of the PrescriptionItem
      * @param endDate of the PrescriptionItem
+     * @param prescription 
      * @return a new (not persisted) PrescriptionItem
      */
     private PrescriptionItem getPrescriptionItem(MedicalDrug drug,
-            Calendar startDate, Calendar endDate) {
+            Calendar startDate, Calendar endDate, Prescription prescription) {
         PrescriptionItem item1 = new PrescriptionItem();
         item1.setStartDate(new Date(startDate.getTime().getTime()));
         item1.setEndDate(new Date(endDate.getTime().getTime()));
@@ -158,6 +162,7 @@ public class PrescriptionServiceTest {
         item1.setNoon(2);
         item1.setEvening(3);
         item1.setNight(4);
+        item1.setPrescription(prescription);
         return item1;
     }
 
