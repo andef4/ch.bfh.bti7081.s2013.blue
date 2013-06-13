@@ -16,6 +16,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.VerticalLayout;
 
@@ -47,7 +48,7 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
         formLayout.addComponent(rtReport);
         addComponent(formLayout);
         
-        Button scanButton = new Button("Report speichern", new Button.ClickListener() {
+        Button saveButton = new Button("Report speichern", new Button.ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
             
@@ -58,10 +59,11 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
                 report.setPrescriptionItem((PrescriptionItem) comboboxDrug.getValue());
                 ReportService.getInstance().createContainer().addEntity(report);
                 
+                Notification.show("Report wurde erfolgreich gespeichert.");
             }
         });
         
-        addComponent(scanButton);
+        addComponent(saveButton);
     }
 
     @Override

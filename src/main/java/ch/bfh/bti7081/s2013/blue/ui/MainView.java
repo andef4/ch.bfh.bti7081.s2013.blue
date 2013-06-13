@@ -16,17 +16,14 @@ public class MainView extends VerticalLayout implements View, IBackButtonView {
         setSizeFull();
         Button patientSearchButton = new Button("Patient suchen", new NavigationClickListener(NavigatorUI.PATIENT_SEARCH_VIEW));
         Button drugSearchButton = new Button("Medikament suchen", new NavigationClickListener(NavigatorUI.DRUG_SEARCH_VIEW));
-        Button reportCreateButton = new Button("Bericht erstellen", new NavigationClickListener(NavigatorUI.REPORT_CREATE_VIEW));
         Button reportSearchButton = new Button("Bericht suchen", new NavigationClickListener(NavigatorUI.REPORT_SEARCH_VIEW));
         
         addComponent(patientSearchButton);
         addComponent(drugSearchButton);
-        addComponent(reportCreateButton);
         addComponent(reportSearchButton);
         
         patientSearchButton.setWidth("100%");
         drugSearchButton.setWidth("100%");
-        reportCreateButton.setWidth("100%");
         reportSearchButton.setWidth("100%");
         
         setMargin(true);

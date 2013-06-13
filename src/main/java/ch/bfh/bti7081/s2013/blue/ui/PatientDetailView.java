@@ -49,15 +49,21 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
         formLayout.addComponent(lastNameLabel);
         addComponent(formLayout);
     
-        // prescriptions
-        Button scanButton = new Button("Scan Medikamente", new Button.ClickListener() {
+        //initialize scanButton
+        scanButton = new Button();
+        scanButton.setCaption("Scan Medikamente");
+        
+        //initialize reportButton
+        reportButton = new Button("Report erfassen", new Button.ClickListener() {
+            
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW);
+                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.REPORT_CREATE_VIEW + "/" + patientId);
+                
             }
         });
         
-
+        addComponent(reportButton);
         addComponent(scanButton);
         prescriptionTable = new TreeTable();
         prescriptionTable.setWidth("400px");
@@ -66,7 +72,6 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
         prescriptionTable.addContainerProperty("checkbox", CheckBox.class, "");
         
         initScanButton();
-        initReportButton();
     }
     
     @Override
@@ -178,20 +183,6 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
             }
         });
     }
-    
-    private void initReportButton() {
-        reportButton = new Button("Report erfassen", new Button.ClickListener() {
-            
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.REPORT_CREATE_VIEW + "/" + patientId);
-                
-            }
-        });
-        addComponent(reportButton);
-
-    }
-
 
     @Override
     public String getBackView() {
