@@ -14,7 +14,12 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
-
+/**
+ * In this view, you can search for reports. 
+ * Search criterias: Patient (firstname, lastname), Drug (Drugname)
+ * @author gassm9
+ *
+ */
 @SuppressWarnings("serial")
 public class ReportSearchView extends VerticalLayout implements View, IBackButtonView {
 
@@ -25,6 +30,9 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
     private JPAContainer<Report> reportContainer;
     private Table table;
     
+    /**
+     * Default constructor
+     */
     public ReportSearchView() {
         setSizeFull(); 
                 
@@ -56,6 +64,9 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
         initTable();
     }
     
+    /**
+     * Initialize the search button
+     */
     private void initButton() {
         searchButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -80,6 +91,9 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
         });
     }
 
+    /**
+     * Initializes a table with the search results
+     */
     private void initTable() {
         table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
             @Override
@@ -95,9 +109,11 @@ public class ReportSearchView extends VerticalLayout implements View, IBackButto
         return NavigatorUI.MAIN_VIEW;
     }
 
+    /**
+     * This method is called, when the page is loaded.
+     */
     @Override
     public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
 
     }
 

@@ -26,7 +26,11 @@ import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
+/**
+ * Shows the details of a single patient
+ * @author andef4
+ *
+ */
 @SuppressWarnings("serial")
 public class PatientDetailView extends VerticalLayout implements View, IBackButtonView {
     private Label firstNameLabel;
@@ -36,6 +40,9 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
     private Button reportButton;
     private long patientId;
 
+    /**
+     * Default constructor
+     */
     public PatientDetailView() {
         setSizeFull();
         
@@ -75,6 +82,9 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
     }
     
     @Override
+    /**
+     * This method is called, when the page is loaded.
+     */
     public void enter(ViewChangeEvent event) {
         patientId = Long.parseLong(event.getParameters());
         Patient patient = PatientService.getInstance().createContainer().getItem(patientId).getEntity();
@@ -96,6 +106,12 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
         }
     }
     
+    /**
+     * Adds dailyPrescriptions to a TreeCheckBox control
+     * @param name
+     * @param parentId
+     * @param drugs
+     */
      private void addDailyPrescription(String name, Object parentId, Map<MedicalDrug, Integer> drugs) {
         if (drugs.size() == 0) {
             return;
@@ -116,7 +132,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
         }
     }
     
-    /*
+    /**
      * CheckBox which checks/unchecks children items if checked/unchecked
      */
     class TreeCheckBox extends CheckBox {
@@ -141,7 +157,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
         
     };
     
-    /*
+    /**
      * write selected items to session and navigate to the scan view
      */
     private void initScanButton() {

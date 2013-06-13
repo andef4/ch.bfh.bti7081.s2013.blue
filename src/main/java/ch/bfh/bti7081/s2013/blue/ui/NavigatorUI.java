@@ -8,11 +8,11 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
-/*
+/**
  * This is the main and only UI used. We use a com.vaadin.navigator.Navigator
  * to navigate between different views.
- * @author andef4
+ * author andef4
+ *
  */
 @SuppressWarnings("serial")
 public class NavigatorUI extends UI {

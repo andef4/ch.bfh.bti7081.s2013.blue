@@ -23,8 +23,10 @@ public class PrescriptionService {
         return prescriptionService;
     }
     
-    /*
+    /**
      * returns a list with DailyPrescirptions of the next 7 days
+     * @param patient
+     * @return dailyPrescriptions
      */
     public List<DailyPrescription> getDailyPrescriptions(Patient patient) {
         EntityManager em = PatientService.getInstance().getEntityManager();
@@ -63,8 +65,13 @@ public class PrescriptionService {
         return dailyPrescriptions;
     }
 
+    /**
+     * Returns a list of all prescriptions
+     * 
+     * @param patient
+     * @return prescriptions
+     */
     public List<PrescriptionItem> getPrescriptions(Patient patient) {
-        // TODO gassm9: implemented
         EntityManager em = PatientService.getInstance().getEntityManager();
         
         List<PrescriptionItem> prescriptions = new ArrayList<PrescriptionItem>();
@@ -75,6 +82,5 @@ public class PrescriptionService {
         prescriptions = query.getResultList();
         
         return prescriptions;    
-        
     }
 }

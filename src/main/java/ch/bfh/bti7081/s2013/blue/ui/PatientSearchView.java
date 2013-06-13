@@ -16,6 +16,12 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
+/**
+ * In this view, you can search for patients.
+ * Search criterias: Patient (firstname, lastname) 
+ * @author andef4
+ *
+ */
 public class PatientSearchView extends VerticalLayout implements View, IBackButtonView {
 
     private TextField firstNameField;
@@ -24,6 +30,9 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
     private JPAContainer<Patient> patientContainer;
     private Table table;
 
+    /**
+     * Default constructor
+     */
     public PatientSearchView() {
         setSizeFull();
         
@@ -48,6 +57,9 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
         initTable();
     }
     
+    /**
+     * Initialize the search button
+     */
     private void initButton() {
         searchButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -67,6 +79,9 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
         });
     }
     
+    /**
+     * Initializes a table with the search results
+     */
     private void initTable() {
         table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
             @Override
@@ -74,13 +89,13 @@ public class PatientSearchView extends VerticalLayout implements View, IBackButt
                 Long id = (Long) event.getItemId();
                 UI.getCurrent().getNavigator().navigateTo(NavigatorUI.PATIENT_DETAIL_VIEW + "/" + id);
             }
-        });
-        
+        });   
     }
-
     
-
     @Override
+    /**
+     * This method is called, when the page is loaded.
+     */
     public void enter(ViewChangeEvent event) {
         
     }

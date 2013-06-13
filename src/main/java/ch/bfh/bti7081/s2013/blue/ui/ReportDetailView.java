@@ -9,7 +9,12 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-
+/**
+ * This view shows the details of a single report
+ * 
+ * @author gassm9
+ *
+ */
 @SuppressWarnings("serial")
 public class ReportDetailView extends VerticalLayout implements View, IBackButtonView {
     private Label reportPatientFirstName;
@@ -23,7 +28,9 @@ public class ReportDetailView extends VerticalLayout implements View, IBackButto
     private Label seperator;
     private Label seperator2;
 
-    
+    /**
+     * Default constructor
+     */
     public ReportDetailView() {
         setSizeFull();
     
@@ -63,6 +70,10 @@ public class ReportDetailView extends VerticalLayout implements View, IBackButto
         addComponent(formLayout);    
     }
     
+    /**
+     * This method is called when the page is opened. 
+     * Sets the Labels in the report form.
+     */
     public void enter (ViewChangeEvent event) {
         Long id = Long.parseLong(event.getParameters());
         

@@ -13,13 +13,21 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
+/**
+ * Scans a barcode of a drug.
+ * @author andef4
+ *
+ */
 @SuppressWarnings("serial")
 public class ScanView extends VerticalLayout implements View, IBackButtonView {
 
     private String scanUrl = null;
     private Object patientId;
-
+    
+    /**
+     * Default constructor
+     * @throws UnsupportedEncodingException
+     */
     public ScanView() throws UnsupportedEncodingException {
         Button scanButton = new Button("Scan Medikament", new Button.ClickListener() {
             @Override
@@ -31,6 +39,9 @@ public class ScanView extends VerticalLayout implements View, IBackButtonView {
     }
 
     @Override
+    /**
+     * This method is called, when the page is loaded.
+     */
     public void enter(ViewChangeEvent event) {
         // load drugs to scan from session
         @SuppressWarnings("unchecked")

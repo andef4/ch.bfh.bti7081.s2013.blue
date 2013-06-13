@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2013.blue.ui;
 
-
 import ch.bfh.bti7081.s2013.blue.entities.MedicalDrug;
 import ch.bfh.bti7081.s2013.blue.service.MedicalDrugService;
 
@@ -10,14 +9,20 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-
+/**
+ * This view shows the details of a single drug
+ * @author kambf1
+ *
+ */
 @SuppressWarnings("serial")
 public  class DrugDetailView extends VerticalLayout implements View, IBackButtonView {
     private Label drugNameLabel;
     private Label idNameLabel;
     private Label swissNameLabel;
     
-
+    /**
+     * Default constructor
+     */
     public DrugDetailView() {
         setSizeFull();
     
@@ -32,34 +37,24 @@ public  class DrugDetailView extends VerticalLayout implements View, IBackButton
         formLayout.addComponent(drugNameLabel);
         formLayout.addComponent(swissNameLabel);
         formLayout.addComponent(idNameLabel);        
-        addComponent(formLayout);
-                
-        
+        addComponent(formLayout);       
     }
         
-    
+    /**
+     * This method is called, when the page is loaded.
+     */
     public void enter (ViewChangeEvent event) {
         Long id = Long.parseLong(event.getParameters());
         MedicalDrug medicaldrug = MedicalDrugService.getInstance().createContainer().getItem(id).getEntity();
         drugNameLabel.setValue(medicaldrug.getName());
         swissNameLabel.setValue(medicaldrug.getSwissmedicNumber());
         idNameLabel.setValue(medicaldrug.getManufacturer().getName());
-        
-        
-        
-        
     }
-    
-
-    
 
     @Override
     public String getBackView() {
         return NavigatorUI.DRUG_SEARCH_VIEW;
     }
-
-
-    
 }
 
     

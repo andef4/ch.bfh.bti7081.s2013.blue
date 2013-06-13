@@ -19,7 +19,11 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.VerticalLayout;
-
+/**
+ * This view creates a report with the values: Report-text, prescriptionitemid
+ * @author gassm9
+ *
+ */
 @SuppressWarnings("serial")
 public class ReportCreateView extends VerticalLayout implements View, IBackButtonView {
 
@@ -30,6 +34,9 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
     private RichTextArea rtReport;
     private Long id;
     
+    /**
+     * Default constructor
+     */
     public ReportCreateView() {
         setSizeFull();
         
@@ -40,8 +47,8 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
         rtReport = new RichTextArea();
         firstNameLabel.setCaption("Vorname:");
         lastNameLabel.setCaption("Nachname:");
-        rtReport.setCaption("Report: ");
-        comboboxDrug.setCaption("Medikament: ");
+        rtReport.setCaption("Report:");
+        comboboxDrug.setCaption("Medikament:");
         formLayout.addComponent(firstNameLabel);
         formLayout.addComponent(lastNameLabel);
         formLayout.addComponent(comboboxDrug);
@@ -67,6 +74,9 @@ public class ReportCreateView extends VerticalLayout implements View, IBackButto
     }
 
     @Override
+    /**
+     * This method is called, when the page is loaded.
+     */
     public void enter(ViewChangeEvent event) {
         this.id = Long.parseLong(event.getParameters());
         Patient patient = PatientService.getInstance().createContainer().getItem(id).getEntity();
