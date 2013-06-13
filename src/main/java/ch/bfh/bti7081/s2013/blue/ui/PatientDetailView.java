@@ -29,149 +29,172 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 public class PatientDetailView extends VerticalLayout implements View, IBackButtonView {
-	private Label firstNameLabel;
-	private Label lastNameLabel;
-	private TreeTable prescriptionTable;
-	private Button scanButton;
+    private Label firstNameLabel;
+    private Label lastNameLabel;
+    private TreeTable prescriptionTable;
+    private Button scanButton;
+    private Button reportButton;
     private long patientId;
 
-	public PatientDetailView() {
-		setSizeFull();
-		
-		// information form
-		FormLayout formLayout = new FormLayout();
-		firstNameLabel = new Label();
-		lastNameLabel = new Label();
-		firstNameLabel.setCaption("Vorname:");
-		lastNameLabel.setCaption("Nachname:");
-		formLayout.addComponent(firstNameLabel);
-		formLayout.addComponent(lastNameLabel);
-		addComponent(formLayout);
-		
-		// prescriptions
-		scanButton = new Button("Scan Medikamente");
-		addComponent(scanButton);
-		prescriptionTable = new TreeTable();
-		prescriptionTable.setWidth("400px");
-		addComponent(prescriptionTable);
-		prescriptionTable.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
-		prescriptionTable.addContainerProperty("checkbox", CheckBox.class, "");
-		
-		initScanButton();
-	}
-	
-	@Override
-	public void enter(ViewChangeEvent event) {
-		patientId = Long.parseLong(event.getParameters());
-		Patient patient = PatientService.getInstance().createContainer().getItem(patientId).getEntity();
-		firstNameLabel.setValue(patient.getFirstName());
-		lastNameLabel.setValue(patient.getLastName());
-		
-		List<DailyPrescription> dailyPrescriptions = PrescriptionService.getInstance().getDailyPrescriptions(patient);
-		for (DailyPrescription dailyPrescription : dailyPrescriptions) {
-			String date = DateFormat.getInstance().format(dailyPrescription.getDate());
-			
-			TreeCheckBox box = new TreeCheckBox(date);
-			Object dateId = prescriptionTable.addItem(new Object[] {box}, null);
-			box.setData(dateId);
-			
-			addDailyPrescription("Morgens", dateId, dailyPrescription.getMorningDrugs());
-			addDailyPrescription("Mittags", dateId, dailyPrescription.getNoonDrugs());
-			addDailyPrescription("Abends", dateId, dailyPrescription.getEveningDrugs());
-			addDailyPrescription("Nachts", dateId, dailyPrescription.getNightDrugs());
-		}
-	}
-	
-	private void addDailyPrescription(String name, Object parentId, Map<MedicalDrug, Integer> drugs) {
-		if (drugs.size() == 0) {
-			return;
-		}
-		TreeCheckBox timeCheckBox = new TreeCheckBox(name);
-		Object id = prescriptionTable.addItem(new Object[] {timeCheckBox}, null);
-		timeCheckBox.setData(id);
-		prescriptionTable.setParent(id, parentId);
-		
-		for (Entry<MedicalDrug, Integer> drug : drugs.entrySet()) {
-			String value = drug.getValue().toString() + " " + drug.getKey().getName();
-			CheckBox drugBox = new CheckBox(value);
-			drugBox.setData(drug);
-			Object entryId = prescriptionTable.addItem(new Object[] {drugBox}, null);
-			
-			prescriptionTable.setParent(entryId, id);
-			prescriptionTable.setChildrenAllowed(entryId, false);
-		}
-	}
-	
-	/*
-	 * CheckBox which checks/unchecks children items if checked/unchecked
-	 */
-	class TreeCheckBox extends CheckBox {
-		public TreeCheckBox(String caption) {
-			super(caption);
-		}
-		@Override
-		public void setValue(Boolean newFieldValue) throws
-				ReadOnlyException,
-				ConversionException {
-			super.setValue(newFieldValue);
-			Collection<?> children = prescriptionTable.getChildren(getData());
-			if (children != null) {
-				for (Object id : children) {
-					@SuppressWarnings("unchecked")
-					Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
-					CheckBox checkBox = property.getValue();
-					checkBox.setValue(newFieldValue);
-				}
-			}
-		}
-		
-	};
-	
-	/*
-	 * write selected items to session and navigate to the scan view
-	 */
-	private void initScanButton() {
-		scanButton.addClickListener(new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				Map<String, ScanPrescription> drugsToScan = new HashMap<String, ScanPrescription>();
-				
-				// iterate over item hierarchy to find checked drugs
-				Collection<?> dateIds = prescriptionTable.getItemIds();
-				for (Object dateId : dateIds) {
-				    Collection<?> timeIds = prescriptionTable.getChildren(dateId);
-				    for (Object timeId : timeIds) {
-				        Collection<?> itemIds = prescriptionTable.getChildren(timeId);
-        				for (Object id : itemIds) {
-        					@SuppressWarnings("unchecked")
-        					Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
-        					CheckBox checkBox = property.getValue();
-        					if (checkBox.getValue()) {
-        						@SuppressWarnings("unchecked")
-        						Entry<MedicalDrug, Integer> entry = (Entry<MedicalDrug, Integer>) checkBox.getData();
-        						
-        						// safe drugs chosen to scan in session map
-        						ScanPrescription scanPrescription = drugsToScan.get(entry.getKey().getSwissmedicNumber());
-        						if (scanPrescription == null) {
-        							scanPrescription = new ScanPrescription();
-        							scanPrescription.setCount(entry.getValue());
-        							scanPrescription.setMedicalDrug(entry.getKey());
-        						} else {
-        							scanPrescription.setCount(scanPrescription.getCount() + entry.getValue());
-        						}
-        						drugsToScan.put(entry.getKey().getSwissmedicNumber(), scanPrescription);
-        					}
-        				}
-				    }
-				}
-				getSession().setAttribute(NavigatorUI.DRUGS_TO_SCAN_SESSION, drugsToScan);
-				UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW + "/" + patientId);
-			}
-		});
-	}
+    public PatientDetailView() {
+        setSizeFull();
+        
+        // information form
+        FormLayout formLayout = new FormLayout();
+        firstNameLabel = new Label();
+        lastNameLabel = new Label();
+        firstNameLabel.setCaption("Vorname:");
+        lastNameLabel.setCaption("Nachname:");
+        formLayout.addComponent(firstNameLabel);
+        formLayout.addComponent(lastNameLabel);
+        addComponent(formLayout);
+    
+        // prescriptions
+        Button scanButton = new Button("Scan Medikamente", new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW);
+            }
+        });
+        
 
-	@Override
-	public String getBackView() {
-		return NavigatorUI.PATIENT_SEARCH_VIEW;
-	}
+        addComponent(scanButton);
+        prescriptionTable = new TreeTable();
+        prescriptionTable.setWidth("400px");
+        addComponent(prescriptionTable);
+        prescriptionTable.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
+        prescriptionTable.addContainerProperty("checkbox", CheckBox.class, "");
+        
+        initScanButton();
+        initReportButton();
+    }
+    
+    @Override
+    public void enter(ViewChangeEvent event) {
+        patientId = Long.parseLong(event.getParameters());
+        Patient patient = PatientService.getInstance().createContainer().getItem(patientId).getEntity();
+        firstNameLabel.setValue(patient.getFirstName());
+        lastNameLabel.setValue(patient.getLastName());
+            
+        List<DailyPrescription> dailyPrescriptions = PrescriptionService.getInstance().getDailyPrescriptions(patient);
+        for (DailyPrescription dailyPrescription : dailyPrescriptions) {
+            String date = DateFormat.getInstance().format(dailyPrescription.getDate());
+            
+            TreeCheckBox box = new TreeCheckBox(date);
+            Object dateId = prescriptionTable.addItem(new Object[] {box}, null);
+            box.setData(dateId);
+            
+            addDailyPrescription("Morgens", dateId, dailyPrescription.getMorningDrugs());
+            addDailyPrescription("Mittags", dateId, dailyPrescription.getNoonDrugs());
+            addDailyPrescription("Abends", dateId, dailyPrescription.getEveningDrugs());
+            addDailyPrescription("Nachts", dateId, dailyPrescription.getNightDrugs());
+        }
+    }
+    
+     private void addDailyPrescription(String name, Object parentId, Map<MedicalDrug, Integer> drugs) {
+        if (drugs.size() == 0) {
+            return;
+        }
+        TreeCheckBox timeCheckBox = new TreeCheckBox(name);
+        Object id = prescriptionTable.addItem(new Object[] {timeCheckBox}, null);
+        timeCheckBox.setData(id);
+        prescriptionTable.setParent(id, parentId);
+        
+        for (Entry<MedicalDrug, Integer> drug : drugs.entrySet()) {
+            String value = drug.getValue().toString() + " " + drug.getKey().getName();
+            CheckBox drugBox = new CheckBox(value);
+            drugBox.setData(drug);
+            Object entryId = prescriptionTable.addItem(new Object[] {drugBox}, null);
+            
+            prescriptionTable.setParent(entryId, id);
+            prescriptionTable.setChildrenAllowed(entryId, false);
+        }
+    }
+    
+    /*
+     * CheckBox which checks/unchecks children items if checked/unchecked
+     */
+    class TreeCheckBox extends CheckBox {
+        public TreeCheckBox(String caption) {
+            super(caption);
+        }
+        @Override
+        public void setValue(Boolean newFieldValue) throws
+                ReadOnlyException,
+                ConversionException {
+            super.setValue(newFieldValue);
+            Collection<?> children = prescriptionTable.getChildren(getData());
+            if (children != null) {
+                for (Object id : children) {
+                    @SuppressWarnings("unchecked")
+                    Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
+                    CheckBox checkBox = property.getValue();
+                    checkBox.setValue(newFieldValue);
+                }
+            }
+        }
+        
+    };
+    
+    /*
+     * write selected items to session and navigate to the scan view
+     */
+    private void initScanButton() {
+        scanButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                Map<String, ScanPrescription> drugsToScan = new HashMap<String, ScanPrescription>();
+                
+                // iterate over item hierarchy to find checked drugs
+                Collection<?> dateIds = prescriptionTable.getItemIds();
+                for (Object dateId : dateIds) {
+                    Collection<?> timeIds = prescriptionTable.getChildren(dateId);
+                    for (Object timeId : timeIds) {
+                        Collection<?> itemIds = prescriptionTable.getChildren(timeId);
+                        for (Object id : itemIds) {
+                            @SuppressWarnings("unchecked")
+                            Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
+                            CheckBox checkBox = property.getValue();
+                            if (checkBox.getValue()) {
+                                @SuppressWarnings("unchecked")
+                                Entry<MedicalDrug, Integer> entry = (Entry<MedicalDrug, Integer>) checkBox.getData();
+                                
+                                // safe drugs chosen to scan in session map
+                                ScanPrescription scanPrescription = drugsToScan.get(entry.getKey().getSwissmedicNumber());
+                                if (scanPrescription == null) {
+                                    scanPrescription = new ScanPrescription();
+                                    scanPrescription.setCount(entry.getValue());
+                                    scanPrescription.setMedicalDrug(entry.getKey());
+                                } else {
+                                    scanPrescription.setCount(scanPrescription.getCount() + entry.getValue());
+                                }
+                                drugsToScan.put(entry.getKey().getSwissmedicNumber(), scanPrescription);
+                            }
+                        }
+                    }
+                }
+                getSession().setAttribute(NavigatorUI.DRUGS_TO_SCAN_SESSION, drugsToScan);
+                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.SCAN_VIEW + "/" + patientId);
+            }
+        });
+    }
+    
+    private void initReportButton() {
+        reportButton = new Button("Report erfassen", new Button.ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo(NavigatorUI.REPORT_CREATE_VIEW + "/" + patientId);
+                
+            }
+        });
+        addComponent(reportButton);
+
+    }
+
+
+    @Override
+    public String getBackView() {
+        return NavigatorUI.PATIENT_SEARCH_VIEW;
+    }
 }

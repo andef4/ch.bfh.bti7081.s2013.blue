@@ -22,67 +22,67 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class ReportCreateView extends VerticalLayout implements View, IBackButtonView {
 
-	private FormLayout formLayout;
-	private Label firstNameLabel;
-	private Label lastNameLabel;
-	private ComboBox comboboxDrug;
-	private RichTextArea rtReport;
-	private Long id;
-	
-	public ReportCreateView() {
-		setSizeFull();
-		
-		formLayout = new FormLayout();
-		firstNameLabel = new Label();
-		lastNameLabel = new Label();
-		comboboxDrug = new ComboBox();
-		rtReport = new RichTextArea();
-		firstNameLabel.setCaption("Vorname:");
-		lastNameLabel.setCaption("Nachname:");
-		rtReport.setCaption("Report: ");
-		comboboxDrug.setCaption("Medikament: ");
-		formLayout.addComponent(firstNameLabel);
-		formLayout.addComponent(lastNameLabel);
-		formLayout.addComponent(comboboxDrug);
-		formLayout.addComponent(rtReport);
-		addComponent(formLayout);
-		
-		Button scanButton = new Button("Report speichern", new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-			
-				//save report
-				Report report = new Report();
-				//report.setUser(user);
-				report.setText(rtReport.getValue());
-				report.setPrescriptionItem((PrescriptionItem) comboboxDrug.getValue());
-				ReportService.getInstance().createContainer().addEntity(report);
-				
-			}
-		});
-		
-		addComponent(scanButton);
-	}
+    private FormLayout formLayout;
+    private Label firstNameLabel;
+    private Label lastNameLabel;
+    private ComboBox comboboxDrug;
+    private RichTextArea rtReport;
+    private Long id;
+    
+    public ReportCreateView() {
+        setSizeFull();
+        
+        formLayout = new FormLayout();
+        firstNameLabel = new Label();
+        lastNameLabel = new Label();
+        comboboxDrug = new ComboBox();
+        rtReport = new RichTextArea();
+        firstNameLabel.setCaption("Vorname:");
+        lastNameLabel.setCaption("Nachname:");
+        rtReport.setCaption("Report: ");
+        comboboxDrug.setCaption("Medikament: ");
+        formLayout.addComponent(firstNameLabel);
+        formLayout.addComponent(lastNameLabel);
+        formLayout.addComponent(comboboxDrug);
+        formLayout.addComponent(rtReport);
+        addComponent(formLayout);
+        
+        Button scanButton = new Button("Report speichern", new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+            
+                //save report
+                Report report = new Report();
+                //report.setUser(user);
+                report.setText(rtReport.getValue());
+                report.setPrescriptionItem((PrescriptionItem) comboboxDrug.getValue());
+                ReportService.getInstance().createContainer().addEntity(report);
+                
+            }
+        });
+        
+        addComponent(scanButton);
+    }
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		this.id = Long.parseLong(event.getParameters());
-		Patient patient = PatientService.getInstance().createContainer().getItem(id).getEntity();
-		firstNameLabel.setValue(patient.getFirstName());
-		lastNameLabel.setValue(patient.getLastName());
-		
-		List<PrescriptionItem> prescriptionItems = PrescriptionService.getInstance().getPrescriptions(patient);
-	
-		for (PrescriptionItem prescriptionItem : prescriptionItems) {
-		
-			comboboxDrug.addItem(prescriptionItem);
-			comboboxDrug.setItemCaption(prescriptionItem, prescriptionItem.getMedicalDrug().getName());
-		}
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+        this.id = Long.parseLong(event.getParameters());
+        Patient patient = PatientService.getInstance().createContainer().getItem(id).getEntity();
+        firstNameLabel.setValue(patient.getFirstName());
+        lastNameLabel.setValue(patient.getLastName());
+        
+        List<PrescriptionItem> prescriptionItems = PrescriptionService.getInstance().getPrescriptions(patient);
+    
+        for (PrescriptionItem prescriptionItem : prescriptionItems) {
+        
+            comboboxDrug.addItem(prescriptionItem);
+            comboboxDrug.setItemCaption(prescriptionItem, prescriptionItem.getMedicalDrug().getName());
+        }
+    }
 
-	@Override
-	public String getBackView() {
-		return NavigatorUI.PATIENT_DETAIL_VIEW + "/" + this.id;
-	}
+    @Override
+    public String getBackView() {
+        return NavigatorUI.PATIENT_DETAIL_VIEW + "/" + this.id;
+    }
 
 }
