@@ -170,8 +170,14 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
                 Collection<?> dateIds = prescriptionTable.getItemIds();
                 for (Object dateId : dateIds) {
                     Collection<?> timeIds = prescriptionTable.getChildren(dateId);
+                    if (timeIds == null) {
+                        continue;
+                    }
                     for (Object timeId : timeIds) {
                         Collection<?> itemIds = prescriptionTable.getChildren(timeId);
+                        if (itemIds == null) {
+                            continue;
+                        }
                         for (Object id : itemIds) {
                             @SuppressWarnings("unchecked")
                             Property<CheckBox> property = prescriptionTable.getItem(id).getItemProperty("checkbox");
