@@ -54,7 +54,7 @@ public class PrescriptionService {
             
             for (PrescriptionItem item : items) {
                 
-                if (item.getStartDate().getTime() < endOfDay.getTime().getTime() && item.getEndDate().getTime() > calendar.getTime().getTime()) {
+                //if (item.getStartDate().getTime() < endOfDay.getTime().getTime() && item.getEndDate().getTime() > calendar.getTime().getTime()) {
                     if (item.getMorning() > 0) {
                         dailyPrescription.getMorningDrugs().put(item.getMedicalDrug(), item.getMorning());
                     }
@@ -67,7 +67,7 @@ public class PrescriptionService {
                     if (item.getNight() > 0) {
                         dailyPrescription.getNightDrugs().put(item.getMedicalDrug(), item.getNight());
                     }
-                }
+                //}
             }
             dailyPrescriptions.add(dailyPrescription);
         }
