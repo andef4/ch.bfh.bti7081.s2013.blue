@@ -40,24 +40,33 @@ public class PrescriptionService {
         List<DailyPrescription> dailyPrescriptions = new ArrayList<DailyPrescription>();
         
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Calendar endOfDay = (Calendar) calendar.clone();
+        endOfDay.add(Calendar.DAY_OF_MONTH, 1);
+        
         for (int i = 0; i < 7; i++) {
             DailyPrescription dailyPrescription = new DailyPrescription();
             dailyPrescription.setDate(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
+            endOfDay.add(Calendar.DAY_OF_MONTH, 1);
             
-            // TODO: check start and end date
             for (PrescriptionItem item : items) {
-                if (item.getMorning() > 0) {
-                    dailyPrescription.getMorningDrugs().put(item.getMedicalDrug(), item.getMorning());
-                }
-                if (item.getNoon() > 0) {
-                    dailyPrescription.getNoonDrugs().put(item.getMedicalDrug(), item.getNoon());
-                }
-                if (item.getEvening() > 0) {
-                    dailyPrescription.getEveningDrugs().put(item.getMedicalDrug(), item.getEvening());
-                }
-                if (item.getNight() > 0) {
-                    dailyPrescription.getNightDrugs().put(item.getMedicalDrug(), item.getNight());
+                
+                if (item.getStartDate().getTime() < endOfDay.getTime().getTime() && item.getEndDate().getTime() > calendar.getTime().getTime()) {
+                    if (item.getMorning() > 0) {
+                        dailyPrescription.getMorningDrugs().put(item.getMedicalDrug(), item.getMorning());
+                    }
+                    if (item.getNoon() > 0) {
+                        dailyPrescription.getNoonDrugs().put(item.getMedicalDrug(), item.getNoon());
+                    }
+                    if (item.getEvening() > 0) {
+                        dailyPrescription.getEveningDrugs().put(item.getMedicalDrug(), item.getEvening());
+                    }
+                    if (item.getNight() > 0) {
+                        dailyPrescription.getNightDrugs().put(item.getMedicalDrug(), item.getNight());
+                    }
                 }
             }
             dailyPrescriptions.add(dailyPrescription);
