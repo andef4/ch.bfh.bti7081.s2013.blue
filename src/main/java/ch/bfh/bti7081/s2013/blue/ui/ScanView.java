@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import ch.bfh.bti7081.s2013.blue.service.SettingsService;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
@@ -81,8 +83,9 @@ public class ScanView extends VerticalLayout implements View, IBackButtonView {
         }
 
         try {
-            String host = "192.168.2.142";
-            String returnUrl = "http://" + host + ":8080/#!scan/" + patientId + "/{CODE}";
+            String host = SettingsService.getInstance().getSetting("host", "localhost");
+            String port = SettingsService.getInstance().getSetting("port", "8080");
+            String returnUrl = "http://" + host + ":" + port + "/#!scan/" + patientId + "/{CODE}";
             scanUrl = "http://zxing.appspot.com/scan?ret=" + URLEncoder.encode(returnUrl, "UTF-8");
         } catch (UnsupportedEncodingException ex) {
         }

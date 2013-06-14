@@ -8,3 +8,4 @@ target/
 *.pyc
 admin-venv/
 swissmedic.csv
+settings.properties
