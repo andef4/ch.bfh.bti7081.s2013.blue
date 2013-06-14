@@ -93,7 +93,7 @@ public class PatientDetailView extends VerticalLayout implements View, IBackButt
             
         List<DailyPrescription> dailyPrescriptions = PrescriptionService.getInstance().getDailyPrescriptions(patient);
         for (DailyPrescription dailyPrescription : dailyPrescriptions) {
-            String date = DateFormat.getInstance().format(dailyPrescription.getDate());
+            String date = DateFormat.getDateInstance().format(dailyPrescription.getDate());
             
             TreeCheckBox box = new TreeCheckBox(date);
             Object dateId = prescriptionTable.addItem(new Object[] {box}, null);
