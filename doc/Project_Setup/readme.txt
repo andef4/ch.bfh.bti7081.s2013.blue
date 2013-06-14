@@ -12,4 +12,6 @@ XAMPP installiert werden.
     - mvn jetty:run oder
     - Mit Tomcat deployen
 
+Damit das Scannen korrekt funktioniert, muss in der Datei src/main/resources/settings.properties die IP-Adresse und Port des Servers angegeben
+sein. Eine Beispiel-Konfigurationsdatei ist unter src/main/resources/settings.properties.example gespeichert.
 
