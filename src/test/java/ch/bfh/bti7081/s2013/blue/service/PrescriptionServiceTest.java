@@ -67,8 +67,11 @@ public class PrescriptionServiceTest {
      * overlapping prescriptionItems. Every prescription Item has the same drug
      * and the same amount (morning: 1, noon: 2, evening: 3, night: 4). The
      * following table shows the distribution of the items. The numbers are the
-     * days: [1 2 3 4 ] [ 2 3 4 5 ] [ 4 5 6 7 ] So on day 2 the patient takes 2
-     * pills, on day 4 3 pills and on day 6 only 1 in the morning.
+     * days: 
+     * [1  2  3  4  5]
+     *    [2  3  4  5 ]
+     *         [ 4  5  6  7 ]
+     * So on day 2 the patient takes 2 pills, on day 4 3 pills and on day 6 only 1 in the morning.
      */
     @Test
     public void getDailyPrescriptions() {
@@ -175,16 +178,11 @@ public class PrescriptionServiceTest {
      * @param ratio
      *            How many prescriptions are overlapping on this day
      */
-    private void assertDailyPrescription(DailyPrescription dailyPrescription,
-            MedicalDrug drug, int ratio) {
-        Assert.assertEquals(
-                (int) dailyPrescription.getMorningDrugs().get(drug), 1 * ratio);
-        Assert.assertEquals((int) dailyPrescription.getNoonDrugs().get(drug),
-                2 * ratio);
-        Assert.assertEquals(
-                (int) dailyPrescription.getMorningDrugs().get(drug), 3 * ratio);
-        Assert.assertEquals(
-                (int) dailyPrescription.getMorningDrugs().get(drug), 4 * ratio);
+    private void assertDailyPrescription(DailyPrescription dailyPrescription, MedicalDrug drug, int ratio) {
+        Assert.assertEquals((int) dailyPrescription.getMorningDrugs().get(drug), 1 * ratio);
+        Assert.assertEquals((int) dailyPrescription.getNoonDrugs().get(drug), 2 * ratio);
+        Assert.assertEquals((int) dailyPrescription.getEveningDrugs().get(drug), 3 * ratio);
+        Assert.assertEquals((int) dailyPrescription.getNightDrugs().get(drug), 4 * ratio);
     }
 
     /**
